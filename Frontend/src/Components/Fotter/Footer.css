@@ -1,0 +1,20 @@
+  
+       
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    
+
+footer{
+    background-color: #91C8E4;
+    text-align: left;
+    padding: 40px 0px 0px 0px;
+}
+   .imgfooter {
+    max-width: 100%;
+    height: auto;
+    margin-left: 20px;
+    
+}

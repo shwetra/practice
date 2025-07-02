@@ -1,0 +1,29 @@
+.bottom-hover-panel {
+  position: fixed;
+  top: 100;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid #ccc;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1050;
+  animation: slideUp 0.2s ease-out;
+}
+
+.bottom-hover-panel ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.bottom-hover-panel li {
+  padding: 4px 0;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
