@@ -6,7 +6,6 @@ import Sidebar from "./components/Sidebar";
 import DepositRequest from "./pages/transactions/DepositRequest";
 import WithdrawRequest from "./pages/transactions/withdrawRequest";
 import AutoDeposit from "./pages/transactions/AutoDeposit";
-import ManualDeposit from "./pages/transactions/ManualDeposit";
 import ManualWithdraw from "./pages/transactions/ManualWithdraw";
 import Player from "./pages/player/PlayerList";
 import PlayerDetails from "./pages/player/PlayerDetails";
@@ -18,6 +17,10 @@ import Jetfair from "./pages/sportsbook/Jetfair";
 import Settings from "./pages/Settings";
 import MyProfile from "./pages/MyProfile";
 import LoginPage from "./pages/Login";
+import BranchManager from "./pages/transactions/BranchManager";
+import CreateBranch from "./pages/transactions/CreateBranch";
+import AddProducts from "./pages/transactions/AddProducts";
+import AddcharmaForm from "./pages/transactions/AddcharmaForm";
 function App() {
   return (
     <>
@@ -33,7 +36,15 @@ function App() {
             <Route path="/transactions/requests/deposit" element={<DepositRequest />} />
             <Route path="/transactions/requests/withdraw" element={<WithdrawRequest />} />
             <Route path="/transactions/auto/deposit" element={<AutoDeposit />} />
-            <Route path="/transactions/manual/deposit" element={<ManualDeposit />} />
+            <Route path="/branchs" element={<BranchManager />} />
+            <Route path="/create-branch" element={<CreateBranch />} />
+            <Route path="/addchasma" element={<AddProducts />} />
+            <Route path="/addchasma/create" element={<AddcharmaForm />} />
+            <Route path="/addchasma/edit/:id" element={<AddProducts />} />
+
+
+
+
             <Route path="/transactions/manual/withdraw" element={<ManualWithdraw />} />
             <Route path="/player" element={<Player />} />
             <Route path="/player/details" element={<PlayerDetails />} />

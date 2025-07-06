@@ -2,24 +2,55 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../Model/ChasmaModle');
 const { Op } = require('sequelize');
+const upload = require('../middlewares/upload');
 
 // CREATE 
-router.post('/', async (req, res) => {
+router.post('/', upload.fields([
+  { name: 'images', maxCount: 10 },
+  { name: 'tryonImage', maxCount: 1 }
+]), async (req, res) => {
   try {
-    const product = await Product.create(req.body);
-    res.status(201).json({
-      success: true,
-      message: '✅ Product created successfully',
-      data: product,
+    const { files, body } = req;
+
+    const imagePaths = files.images ? files.images.map(file => file.path) : [];
+    const tryonImagePath = files.tryonImage?.[0]?.path || null;
+
+    // Convert numeric fields
+    const numericFields = {
+      price: parseFloat(body.price),
+      discountPrice: body.discountPrice ? parseFloat(body.discountPrice) : null,
+      starts: body.starts ? parseFloat(body.starts) : 3,
+      productCount: body.productCount ? parseInt(body.productCount) : 0,
+    };
+
+    const newProduct = await Product.create({
+      ...body,
+      ...numericFields,
+      images: imagePaths,
+      tryonImage: tryonImagePath
     });
-  } catch (error) {
-    res.status(500).json({
+
+    res.status(201).json({ success: true, message: "✅ Product created", data: newProduct });
+} catch (error) {
+  console.error("❌ Sequelize error:", error);
+
+  if (error.name === 'SequelizeUniqueConstraintError') {
+    return res.status(400).json({
       success: false,
-      message: '❌ Error creating product',
-      error: error.message,
+      message: "❌ This model number already exists.",
+      field: error.errors?.[0]?.path
     });
   }
+
+  res.status(500).json({
+    success: false,
+    message: "❌ Error creating product",
+    error: error.message
+  });
+}
+
 });
+
 
 // UPDATE
 router.patch('/:id', async (req, res) => {
